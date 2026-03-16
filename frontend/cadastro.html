@@ -1,0 +1,25 @@
+<h2>Cadastro</h2>
+
+<input id="nome" placeholder="Nome">
+
+<button onclick="cadastrar()">Cadastrar</button>
+
+<script>
+
+async function cadastrar(){
+
+    const nome = document.getElementById("nome").value;
+
+    const res = await fetch("http://localhost:3000/register",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({nome})
+    });
+
+    const data = await res.json();
+
+    alert("Usuário criado ID: "+data.id);
+
+}
+
+</script>

@@ -1,0 +1,31 @@
+<h2>Verificar Assinatura</h2>
+
+<input id="id" placeholder="ID assinatura">
+
+<button onclick="verificar()">Verificar</button>
+
+<p id="resultado"></p>
+
+<script>
+
+async function verificar(){
+
+    const id = document.getElementById("id").value;
+
+    const res = await fetch(
+        "http://localhost:3000/verify/"+id
+    );
+
+    const data = await res.json();
+
+    const dataFormatada =
+        new Date(data.data).toLocaleString("pt-BR");
+
+    document.getElementById("resultado").innerText =
+        "Resultado: "+data.resultado+
+        "\nUsuário: "+data.usuario+
+        "\nAlgoritmo: "+data.algoritmo+
+        "\nData: "+dataFormatada;
+}
+
+</script>
