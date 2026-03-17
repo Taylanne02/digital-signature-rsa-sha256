@@ -169,3 +169,19 @@ Toda a aplicação utiliza persistência em banco de dados SQLite.
         .env
         database.db
 
+------------------------------
+
+# Assinaturas no sistema
+
+![Assinaturas](imagens/Assinaturas.png)
+
+
+# Exemplo de Assinatura Válida
+
+![Assinatura válida](imagens/Assinatura-válida.png)
+
+---
+
+# Exemplo de Assinatura Inválida
+
+![Assinatura inválida](imagens/Assinatura-inválida.png)
