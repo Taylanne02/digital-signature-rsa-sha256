@@ -172,16 +172,14 @@ Toda a aplicação utiliza persistência em banco de dados SQLite.
 ------------------------------
 
 # Assinaturas no sistema
+![Assinaturas](Imagens/Assinaturas.png)
 
-![Assinaturas](imagens/Assinaturas.png)
-
+---
 
 # Exemplo de Assinatura Válida
-
-![Assinatura válida](imagens/Assinatura-valida.png)
+![Assinatura válida](Imagens/Assinatura-valida.png)
 
 ---
 
 # Exemplo de Assinatura Inválida
-
-![Assinatura inválida](imagens/Assinatura-invalida.png)
+![Assinatura inválida](Imagens/Assinatura-invalida.png)
