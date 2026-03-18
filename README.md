@@ -4,7 +4,7 @@ Atividade de Segurança de Sistema - Aplicação web desenvolvida com o objetivo
 
 Dupla:
 - Taylanne Castelo Branco Cavalcante
-- Yngrind
+- Yngrind Guimarães Silva
 
 ------------------------------
 
