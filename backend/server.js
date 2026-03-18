@@ -10,9 +10,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-/* =========================
-   CADASTRO
-========================= */
+/*Cadastrar*/
 
 app.post("/register", (req,res)=>{
 
@@ -40,9 +38,7 @@ app.post("/register", (req,res)=>{
 });
 
 
-/* =========================
-   ASSINAR TEXTO
-========================= */
+/*Assinar texto*/
 
 app.post("/sign",(req,res)=>{
 
@@ -56,7 +52,6 @@ app.post("/sign",(req,res)=>{
             if(err) return res.status(500).send(err);
             if(!user) return res.send("Usuário não encontrado");
 
-            // ✅ ASSINA O TEXTO DIRETO
             const assinatura = crypto.sign(
                 "sha256",
                 Buffer.from(texto),
@@ -90,9 +85,7 @@ app.post("/sign",(req,res)=>{
 });
 
 
-/* =========================
-   VERIFICAR ASSINATURA
-========================= */
+/*Verificar assinatura*/
 
 app.get("/verify/:id",(req,res)=>{
 
@@ -114,7 +107,6 @@ app.get("/verify/:id",(req,res)=>{
                     if(err) return res.status(500).send(err);
                     if(!user) return res.send("Usuário não encontrado");
 
-                    // ✅ verifica usando TEXTO ATUAL DO BANCO
                     const verify = crypto.verify(
                         "sha256",
                         Buffer.from(sign.texto),
@@ -125,7 +117,7 @@ app.get("/verify/:id",(req,res)=>{
                     const resultado =
                         verify ? "VALIDA" : "INVALIDA";
 
-                    // salva log
+                    /*Log*/
                     db.run(
                         `INSERT INTO logs
                         (assinaturaId,resultado,data)
