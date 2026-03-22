@@ -8,6 +8,8 @@ db.serialize(() => {
     CREATE TABLE IF NOT EXISTS users(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nome TEXT,
+        email TEXT UNIQUE,
+        senha TEXT,
         publicKey TEXT,
         privateKey TEXT
     )

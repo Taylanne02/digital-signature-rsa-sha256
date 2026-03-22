@@ -1,28 +1,90 @@
 <h2>Assinar Texto</h2>
 
-<input id="userId" placeholder="ID usuário">
+<p id="usuario"></p>
 
-<textarea id="texto"></textarea>
+<button onclick="logout()">Sair</button>
+
+<br><br>
+
+<textarea id="texto" placeholder="Digite o texto"></textarea>
+
+<br><br>
+
+<input id="senha" type="password" placeholder="Confirme sua senha">
+
+<br><br>
 
 <button onclick="assinar()">Assinar</button>
 
 <script>
 
+// =====================
+// VERIFICA LOGIN
+// =====================
+const userId = localStorage.getItem("userId");
+const nome = localStorage.getItem("nome");
+
+if(!userId){
+    alert("Faça login primeiro!");
+    window.location.href = "login.html";
+}
+
+// mostra usuário logado
+document.getElementById("usuario").innerText =
+    "Logado como: " + nome;
+
+
+// =====================
+// ASSINAR TEXTO
+// =====================
 async function assinar(){
 
-    const userId = document.getElementById("userId").value;
     const texto = document.getElementById("texto").value;
+    const senha = document.getElementById("senha").value;
+
+    if(!texto || !senha){
+        alert("Digite o texto e confirme sua senha!");
+        return;
+    }
 
     const res = await fetch("http://localhost:3000/sign",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({userId,texto})
+        body:JSON.stringify({
+            userId,
+            texto,
+            senha
+        })
     });
 
     const data = await res.json();
 
-    alert("ID da assinatura: "+data.assinaturaId);
+    if(!res.ok){
+        alert(data.erro);
+        return;
+    }
 
+    alert(
+        "Assinatura criada!\n\nID: " +
+        data.assinaturaId
+    );
+
+    // limpa campos
+    document.getElementById("texto").value = "";
+    document.getElementById("senha").value = "";
+}
+
+
+// =====================
+// LOGOUT
+// =====================
+function logout(){
+
+    localStorage.clear(); // melhor prática
+
+    alert("Você saiu do sistema.");
+
+    window.location.href = "login.html";
 }
 
 </script>

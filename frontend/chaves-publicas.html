@@ -1,0 +1,38 @@
+<h2>Chaves Públicas</h2>
+
+<ul id="lista"></ul>
+
+<script>
+
+async function carregar(){
+
+    const res =
+        await fetch("http://localhost:3000/public-keys");
+
+    const dados = await res.json();
+
+    const lista=document.getElementById("lista");
+
+    dados.forEach(u=>{
+
+        const li=document.createElement("li");
+
+        li.innerHTML=
+            u.nome+
+            ` <button onclick="baixar(${u.id})">
+                Baixar chave pública
+              </button>`;
+
+        lista.appendChild(li);
+    });
+}
+
+function baixar(id){
+    window.open(
+        "http://localhost:3000/download-public-key/"+id
+    );
+}
+
+carregar();
+
+</script>

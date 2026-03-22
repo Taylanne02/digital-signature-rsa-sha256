@@ -1,0 +1,46 @@
+<h2>Minhas Assinaturas</h2>
+
+<ul id="lista"></ul>
+
+<script>
+
+const userId = localStorage.getItem("userId");
+
+if(!userId){
+    window.location.href="login.html";
+}
+
+async function carregar(){
+
+    try{
+
+        const res = await fetch(
+            "http://localhost:3000/my-signatures/" + userId
+        );
+
+        const dados = await res.json();
+
+        const lista = document.getElementById("lista");
+        lista.innerHTML = "";
+
+        dados.forEach(a => {
+
+            const li = document.createElement("li");
+
+            li.innerHTML =
+                a.texto.substring(0,30) + "... " +
+                `<a href="verificar.html?id=${a.id}">
+                    Verificar
+                 </a>`;
+
+            lista.appendChild(li);
+        });
+
+    }catch(err){
+        console.error("Erro ao carregar:", err);
+    }
+}
+
+carregar();
+
+</script>

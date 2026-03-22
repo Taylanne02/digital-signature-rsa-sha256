@@ -1,0 +1,45 @@
+<h2>Minhas Chaves</h2>
+
+<input id="senha" type="password"
+placeholder="Confirme sua senha">
+
+<button onclick="baixarPrivada()">
+Baixar chave privada
+</button>
+
+<script>
+
+const userId=localStorage.getItem("userId");
+
+if(!userId){
+    window.location.href="login.html";
+}
+
+async function baixarPrivada(){
+
+    const senha=
+        document.getElementById("senha").value;
+
+    const res=await fetch(
+        "http://localhost:3000/download-private-key",
+        {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({userId,senha})
+        }
+    );
+
+    const data=await res.json();
+
+    const blob=new Blob([data.privateKey]);
+
+    const a=document.createElement("a");
+
+    a.href=URL.createObjectURL(blob);
+    a.download="privateKey.pem";
+    a.click();
+}
+
+</script>

@@ -1,31 +1,68 @@
 <h2>Verificar Assinatura</h2>
 
-<input id="id" placeholder="ID assinatura">
+<p id="usuario"></p>
 
-<button onclick="verificar()">Verificar</button>
+<div id="resultado"></div>
 
-<p id="resultado"></p>
+<canvas id="qrcode"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
 <script>
 
+const userId = localStorage.getItem("userId");
+const nome = localStorage.getItem("nome");
+
+if(!userId){
+    alert("Faça login primeiro!");
+    window.location.href="login.html";
+}
+
+document.getElementById("usuario")
+.innerText = "Logado como: " + nome;
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
 async function verificar(){
 
-    const id = document.getElementById("id").value;
+    if(!id){
+        document.getElementById("resultado")
+            .innerText = "ID da assinatura inválido.";
+        return;
+    }
 
-    const res = await fetch(
-        "http://localhost:3000/verify/"+id
-    );
+    try{
 
-    const data = await res.json();
+        const res =
+            await fetch("http://localhost:3000/verify/" + id);
 
-    const dataFormatada =
-        new Date(data.data).toLocaleString("pt-BR");
+        const data = await res.json();
 
-    document.getElementById("resultado").innerText =
-        "Resultado: "+data.resultado+
-        "\nUsuário: "+data.usuario+
-        "\nAlgoritmo: "+data.algoritmo+
-        "\nData: "+dataFormatada;
+        // Formatar data
+        const dataFormatada =
+            new Date(data.data).toLocaleString("pt-BR");
+
+        
+        document.getElementById("resultado").innerText =
+            "Resultado: " + data.resultado +
+            "\nUsuário: " + data.usuario +
+            "\nAlgoritmo: " + data.algoritmo +
+            "\nData: " + dataFormatada;
+
+        //QR CODE
+        QRCode.toCanvas(
+            document.getElementById("qrcode"),
+            "http://localhost:3000/verify/" + id
+        );
+
+    }catch(err){
+        console.error(err);
+        document.getElementById("resultado")
+            .innerText = "Erro ao verificar assinatura.";
+    }
 }
+
+verificar();
 
 </script>

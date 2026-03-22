@@ -1,0 +1,46 @@
+<h2>Menu Principal</h2>
+
+<p id="usuario"></p>
+
+<h3>Qual serviço deseja executar?</h3>
+
+<button onclick="irAssinar()">Assinar</button>
+<button onclick="irMinhas()">Minhas Assinaturas</button>
+<button onclick="irChaves()">Chaves Públicas</button>
+<button onclick="irMinhasChaves()">Minhas Chaves</button>
+<button onclick="sair()">Sair</button>
+
+<script>
+
+const userId = localStorage.getItem("userId");
+const nome = localStorage.getItem("nome");
+
+if(!userId){
+    window.location.href = "login.html";
+}
+
+document.getElementById("usuario")
+.innerText = "Logado como: " + nome;
+
+function irAssinar(){
+    window.location.href = "assinar.html";
+}
+
+function sair(){
+    localStorage.clear();
+    window.location.href = "login.html";
+}
+
+function irMinhas(){
+    window.location.href="minhas-assinaturas.html";
+}
+
+function irChaves(){
+    window.location.href="chaves-publicas.html";
+}
+
+function irMinhasChaves(){
+    window.location.href="minhas-chaves.html";
+}
+
+</script>

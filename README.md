@@ -52,66 +52,143 @@ Toda a aplicação utiliza persistência em banco de dados SQLite.
 
 # Fluxo da Aplicação
     1- Cadastro
-        - Usuário informa nome.
+        - Usuário informa:
+            1. nome
+            2. email
+            3. senha
         - Sistema gera automaticamente:
-            - chave pública
-            - chave privada
+            1. chave pública
+            2. chave privada
         - Chaves são armazenadas no banco.
 
-    2- Assinatura
-        - Usuário digita um texto.
-        - Sistema:
-            1. Calcula hash SHA-256
-            2. Assina usando chave privada
-            3. Salva assinatura no banco
-            4. Retorna ID da assinatura
+    2 - Login
+        - Usuário informa:
+            1. email
+            2. senha
+        - O sistema: 
+            1. busca o usuário pelo email
+            2. comapara a senha digitada com o hash salvo
+            3. se válido:
+                - salva sessão no navegador (localStorage)
+                - redireciona para o menu
 
-    3- Verificação
-        - Qualquer pessoa acessa /verify/:id
-        - O sistema verifica a assinatura usando a chave pública.
-        - Resultado exibido:
-            - VÁLIDA ou INVÁLIDA
-            - signatário
-            - algoritmo
-            - data/hora
+    3 - Menu principal
+        - Usuário logado pode acessar:
+            1. Assinar texto
+            2. Minhas assinaturas
+            3. Chaves públicas
+            4. Minhas chaves
+            5. Sair do sistema
+
+    4 - Assinatura
+        - Usuário digita um texto.
+        - Confirma sua senha.
+
+        - O sistema:
+            1. Valida a senha
+            2. Calcula hash SHA-256 do texto
+            3. Assina o hash usando a chave privada do usuário
+            4. Salva no banco:
+                - texto
+                - hash
+                - assinatura
+                - data
+                - usuário
+            5. Retorna o ID da assinatura.
+
+    5 - Minhas assinaturas
+        - Lista todas as assinaturas feitas pelo usuário logado.
+        - Cada item possui:
+            1. trecho do texto
+            2. link para verificação
+        - Leva para a página Verificação
+
+    6 - Verificação
+        - O sistema:
+            1. Busca a assinatura pelo ID
+            2. Busca a chave pública ou usuário
+            3. Executa verificação criptografada
+            4. Retorna:
+                - VÁLIDA ou INVÁLIDA
+                - Nome do usuário
+                - Algoritmo utilizado
+                - Data e hora da assinatura
+
+    7 - Chaves públicas
+        - Lista todos os usuários cadastrados
+        - Permite baixar chave pública de qualquer usuário
+
+    8 - Minhas chaves
+        - Usuário logado pode:
+            1. baixar sua chave privada
+            2. confirmar senha antes do download
+        - Apenas o dono logado com senha pode baixar sua chave privada.
 
 # Endpoints da API
+
     ➜ Cadastro
     POST /register
 
     Body:
     {
-    "nome": "Taylanne"
+    "nome": "Taylanne",
+    "email": "tay@gmail.com",
+    "senha":"123456"
     }
 
     Resposta:
 
     {
-    "id": 1
+    "id": 1,
+    "nome":"Taylanne",
+    "message":"Usuário cadastrado com sucesso"
     }
+
 ------------------------------
-    ➜ Assinar Texto
-    POST /sign
+
+    ➜ Login
+    POST/login
 
     Body:
-
     {
-    "userId": 1,
-    "texto": "Mensagem importante"
+    "email": "tay@gmail.com",
+    "senha":"123456"
     }
 
     Resposta:
 
     {
-    "assinaturaId": 1
+    "message":"Login realizado",   
+    "id": 1,
+    "nome":"Taylanne"
     }
+
 ------------------------------
-    ➜ Verificar Assinatura
-    GET /verify/:id
 
-    Exemplo:
+    ➜ Assinar texto
+    POST/sign
 
-    GET /verify/1
+    Body:
+    {
+    "userId": 1,
+    "texto":"Mensagem importante"
+    "senha":"123456"
+    }
+
+    Resposta:
+
+    {
+    "assinaturaId":"1",    
+    "message":"Texto assinado com sucesso"
+    }
+
+------------------------------
+
+    ➜ Verificar assinatura
+    GET/verify/:id
+
+    Exemplo: 
+    GET/verify/1
 
     Resposta:
 
@@ -119,7 +196,56 @@ Toda a aplicação utiliza persistência em banco de dados SQLite.
     "resultado": "VALIDA",
     "usuario": "Taylanne",
     "algoritmo": "RSA + SHA256",
-    "data": "2026-03-17"
+    "data": "2026-03-17T19:20:00.000Z"
+    }
+
+------------------------------
+
+    ➜ Lista minhas assinaturas
+    GET/my-signatures/:userId
+
+    Resposta:
+    [
+    {
+        "id": 1,
+        "texto": "Mensagem importante",
+        "data": "2026-03-17T19:20:00.000Z"
+    }
+    ]
+
+------------------------------
+
+    ➜ Lista chaves públicas
+    GET/public-keys
+
+    Resposta:
+    [
+    {
+        "id": 1,
+        "nome": "Taylanne",
+        "publicKey": "-----BEGIN RSA PUBLIC KEY-----..."
+    }
+    ]
+------------------------------
+    ➜ Baixar chave pública
+    GET/download-public-key/:id
+
+    Baixa o arquivo publicKey.pem
+
+------------------------------
+
+    ➜ Baixar chave privada
+    POST/download-private-key
+
+    Body: 
+    {
+    "userId": 1,
+    "senha": "123456"
+    }
+
+    Resposta:
+    {
+    "privateKey": "-----BEGIN RSA PRIVATE KEY-----..."
     }
 
 ------------------------------
