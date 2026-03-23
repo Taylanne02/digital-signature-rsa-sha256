@@ -50,12 +50,6 @@ async function verificar(){
             "\nAlgoritmo: " + data.algoritmo +
             "\nData: " + dataFormatada;
 
-        //QR CODE
-        QRCode.toCanvas(
-            document.getElementById("qrcode"),
-            "http://localhost:3000/verify/" + id
-        );
-
     }catch(err){
         console.error(err);
         document.getElementById("resultado")
