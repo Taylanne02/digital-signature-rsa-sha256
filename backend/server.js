@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-/*Cadastrar usuário (cadastro real)*/
+/*Cadastrar usuário*/
 
 app.post("/register", async (req,res)=>{
 
@@ -133,9 +133,6 @@ app.post("/sign", async (req, res) => {
 
             try {
 
-                // =====================
-                // CONFERE SENHA
-                // =====================
                 const senhaValida =
                     await bcrypt.compare(senha, user.senha);
 
@@ -145,9 +142,7 @@ app.post("/sign", async (req, res) => {
                     });
                 }
 
-                // =====================
-                // GERA ASSINATURA
-                // =====================
+                // gera assinatura
                 const assinatura = crypto.sign(
                     "sha256",
                     Buffer.from(texto),
@@ -159,7 +154,11 @@ app.post("/sign", async (req, res) => {
                     .update(texto)
                     .digest("hex");
 
-                const data = new Date().toISOString();
+                const agora = new Date();
+
+                const data = agora.toLocaleString("pt-BR", {
+                    timeZone: "America/Araguaina"
+                });
 
                 // salva assinatura
                 db.run(

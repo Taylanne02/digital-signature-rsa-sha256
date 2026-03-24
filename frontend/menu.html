@@ -5,10 +5,22 @@
 <h3>Qual serviço deseja executar?</h3>
 
 <button onclick="irAssinar()">Assinar</button>
+<br><br>
+
 <button onclick="irMinhas()">Minhas Assinaturas</button>
+<br><br>
+
 <button onclick="irChaves()">Chaves Públicas</button>
+<br><br>
+
 <button onclick="irMinhasChaves()">Minhas Chaves</button>
-<button onclick="sair()">Sair</button>
+<br><br>
+
+<button onclick="irCadastro()">Cadastrar Novo Usuário</button>
+<br><br>
+
+<button onclick="logout()">Logout</button>
+<br><br>
 
 <script>
 
@@ -22,25 +34,38 @@ if(!userId){
 document.getElementById("usuario")
 .innerText = "Logado como: " + nome;
 
+
 function irAssinar(){
     window.location.href = "assinar.html";
 }
 
-function sair(){
-    localStorage.clear();
-    window.location.href = "login.html";
-}
-
 function irMinhas(){
-    window.location.href="minhas-assinaturas.html";
+    window.location.href = "minhas-assinaturas.html";
 }
 
 function irChaves(){
-    window.location.href="chaves-publicas.html";
+    window.location.href = "chaves-publicas.html";
 }
 
 function irMinhasChaves(){
-    window.location.href="minhas-chaves.html";
+    window.location.href = "minhas-chaves.html";
+}
+
+// ir para cadastro
+function irCadastro(){
+    window.location.href = "cadastro.html";
+}
+
+function logout(){
+
+    // limpa sessão
+    localStorage.removeItem("userId");
+    localStorage.removeItem("nome");
+
+    alert("Logout realizado com sucesso!");
+
+    // volta pro login
+    window.location.href = "login.html";
 }
 
 </script>

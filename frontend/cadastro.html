@@ -27,7 +27,6 @@ async function cadastrar(){
 
     const data = await res.json();
 
-    // erro do backend
     if(!res.ok){
         alert(data.erro);
         return;
@@ -39,8 +38,10 @@ async function cadastrar(){
         "\nID: " + data.id
     );
 
-    // redireciona automaticamente para login
-    window.location.href = "login.html";
+     // limpa campos
+     document.getElementById("nome").value = "";
+     document.getElementById("email").value = "";
+     document.getElementById("senha").value = "";
 }
 
 function irLogin(){

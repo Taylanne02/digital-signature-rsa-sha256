@@ -18,9 +18,7 @@
 
 <script>
 
-// =====================
-// VERIFICA LOGIN
-// =====================
+
 const userId = localStorage.getItem("userId");
 const nome = localStorage.getItem("nome");
 
@@ -29,14 +27,9 @@ if(!userId){
     window.location.href = "login.html";
 }
 
-// mostra usuário logado
 document.getElementById("usuario").innerText =
     "Logado como: " + nome;
 
-
-// =====================
-// ASSINAR TEXTO
-// =====================
 async function assinar(){
 
     const texto = document.getElementById("texto").value;
@@ -74,13 +67,9 @@ async function assinar(){
     document.getElementById("senha").value = "";
 }
 
-
-// =====================
-// LOGOUT
-// =====================
 function logout(){
 
-    localStorage.clear(); // melhor prática
+    localStorage.clear();
 
     alert("Você saiu do sistema.");
 

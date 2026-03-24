@@ -15,6 +15,8 @@ O sistema permite que usuários:
 1. Realizem cadastro (geração automática de par de chaves).
 2. Assinem digitalmente textos.
 3. Verifiquem publicamente a validade de assinaturas digitais.
+4. Baixem chaves públicas de todos os usuários
+5. Baixem chaves privadas próprias.
 
 Toda a aplicação utiliza persistência em banco de dados SQLite.
 
