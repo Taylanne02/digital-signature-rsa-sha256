@@ -223,12 +223,14 @@ app.get("/verify/:id",(req,res)=>{
                     const resultado =
                         verify ? "VALIDA" : "INVALIDA";
 
+                    const dataFormatada = data.data;
+
                     /*Log*/
                     db.run(
                         `INSERT INTO logs
                         (assinaturaId,resultado,data)
                         VALUES(?,?,?)`,
-                        [id,resultado,new Date().toISOString()]
+                        [id,resultado,new dataFormatada().toISOString()]
                     );
 
                     res.json({

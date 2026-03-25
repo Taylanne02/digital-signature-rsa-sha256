@@ -38,10 +38,7 @@ async function verificar(){
             await fetch("http://localhost:3000/verify/" + id);
 
         const data = await res.json();
-
-        // Formatar data
-        const dataFormatada =
-            new Date(data.data).toLocaleString("pt-BR");
+        const dataFormatada = data.data;
 
         
         document.getElementById("resultado").innerText =
