@@ -4,10 +4,6 @@
 
 <div id="resultado"></div>
 
-<canvas id="qrcode"></canvas>
-
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-
 <script>
 
 const userId = localStorage.getItem("userId");
@@ -18,8 +14,8 @@ if(!userId){
     window.location.href="login.html";
 }
 
-document.getElementById("usuario")
-.innerText = "Logado como: " + nome;
+document.getElementById("usuario").innerText =
+    "Logado como: " + nome;
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
@@ -38,9 +34,17 @@ async function verificar(){
             await fetch("http://localhost:3000/verify/" + id);
 
         const data = await res.json();
-        const dataFormatada = data.data;
 
-        
+        /* ===== FORMATA DATA BR ===== */
+
+        let dataFormatada = data.data;
+
+        // se vier ISO do banco, converte
+        if(!isNaN(Date.parse(data.data))){
+            dataFormatada = new Date(data.data)
+                .toLocaleString("pt-BR");
+        }
+
         document.getElementById("resultado").innerText =
             "Resultado: " + data.resultado +
             "\nUsuário: " + data.usuario +

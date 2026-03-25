@@ -223,14 +223,17 @@ app.get("/verify/:id",(req,res)=>{
                     const resultado =
                         verify ? "VALIDA" : "INVALIDA";
 
-                    const dataFormatada = data.data;
+                    const agora = new Date();
 
-                    /*Log*/
+                    const dataLog = agora.toLocaleString("pt-BR", {
+                        timeZone: "America/Araguaina"
+                    });
+
                     db.run(
                         `INSERT INTO logs
                         (assinaturaId,resultado,data)
                         VALUES(?,?,?)`,
-                        [id,resultado,new dataFormatada().toISOString()]
+                        [id, resultado, dataLog]
                     );
 
                     res.json({
