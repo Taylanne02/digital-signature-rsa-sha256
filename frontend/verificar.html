@@ -35,11 +35,8 @@ async function verificar(){
 
         const data = await res.json();
 
-        /* ===== FORMATA DATA BR ===== */
-
         let dataFormatada = data.data;
 
-        // se vier ISO do banco, converte
         if(!isNaN(Date.parse(data.data))){
             dataFormatada = new Date(data.data)
                 .toLocaleString("pt-BR");
