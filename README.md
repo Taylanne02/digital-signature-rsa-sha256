@@ -2,7 +2,7 @@
 
 Atividade de Segurança de Sistema - Aplicação web desenvolvida com o objetivo de implementar um sistema de assinatura digital utilizando criptografia assimétrica (RSA) e hash SHA-256.
 
-Obs.: A atividade foi entregue e apresentada em 26/03/2026, contemplando todas as alterações solicitadas. Após essa data, o projeto passou a ser mantido e desenvolvido individualmente.
+*Obs*.: A atividade foi entregue e apresentada em 26/03/2026, contemplando todas as alterações solicitadas. Após essa data, o projeto passou a ser mantido e desenvolvido individualmente.
 
 Dupla:
 - Taylanne Castelo Branco Cavalcante
