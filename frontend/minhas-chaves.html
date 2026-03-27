@@ -1,4 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Minhas Chaves</title>
+
+<link rel="stylesheet" href="CSS/global.css">
+<link rel="stylesheet" href="CSS/form.css">
+</head>
+
+<body>
+
+<div class="container">
+
 <h2>Minhas Chaves</h2>
+
+<p id="usuario"></p>
+
+<div id="msg"></div>
 
 <input id="senha" type="password"
 placeholder="Confirme sua senha">
@@ -7,39 +25,82 @@ placeholder="Confirme sua senha">
 Baixar chave privada
 </button>
 
+<br><br>
+
+<button onclick="voltar()">Voltar</button>
+
+</div>
+
 <script>
 
-const userId=localStorage.getItem("userId");
+const userId = localStorage.getItem("userId");
+const nome = localStorage.getItem("nome");
 
 if(!userId){
     window.location.href="login.html";
 }
 
+document.getElementById("usuario").innerText =
+    "Logado como: " + nome;
+
+
 async function baixarPrivada(){
 
-    const senha=
-        document.getElementById("senha").value;
+    const senha = document.getElementById("senha").value;
+    const msg = document.getElementById("msg");
 
-    const res=await fetch(
-        "http://localhost:3000/download-private-key",
-        {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({userId,senha})
+    msg.innerText = "";
+
+    if(!senha){
+        msg.innerText = "Digite sua senha.";
+        return;
+    }
+
+    try{
+
+        const res = await fetch(
+            "http://localhost:3000/download-private-key",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({userId,senha})
+            }
+        );
+
+        const data = await res.json();
+
+        if(!res.ok){
+            msg.innerText = data;
+            return;
         }
-    );
 
-    const data=await res.json();
+        const blob = new Blob([data.privateKey],{
+            type:"application/x-pem-file"
+        });
 
-    const blob=new Blob([data.privateKey]);
+        const a = document.createElement("a");
 
-    const a=document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "privateKey.pem";
+        a.click();
 
-    a.href=URL.createObjectURL(blob);
-    a.download="privateKey.pem";
-    a.click();
+        msg.innerText = "Download iniciado com sucesso!";
+
+        document.getElementById("senha").value="";
+
+    }catch(err){
+        console.error(err);
+        msg.innerText = "Erro ao baixar chave.";
+    }
+}
+
+function voltar(){
+    window.location.href="menu.html";
 }
 
 </script>
+
+</body>
+</html>

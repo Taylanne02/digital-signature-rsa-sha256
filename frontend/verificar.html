@@ -1,60 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Verificar</title>
+
+<link rel="stylesheet" href="CSS/global.css">
+<link rel="stylesheet" href="CSS/form.css">
+</head>
+
+<body>
+
+<div class="container">
+
 <h2>Verificar Assinatura</h2>
 
 <p id="usuario"></p>
 
-<div id="resultado"></div>
+<pre id="resultado"></pre>
+
+<button onclick="voltar()">Voltar</button>
+
+</div>
 
 <script>
 
 const userId = localStorage.getItem("userId");
 const nome = localStorage.getItem("nome");
 
-if(!userId){
-    alert("Faça login primeiro!");
-    window.location.href="login.html";
-}
+if(!userId) location.href="login.html";
 
 document.getElementById("usuario").innerText =
-    "Logado como: " + nome;
+"Logado como: " + nome;
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const id = new URLSearchParams(location.search).get("id");
+
+let jaVerificou = false;
 
 async function verificar(){
 
-    if(!id){
-        document.getElementById("resultado")
-            .innerText = "ID da assinatura inválido.";
-        return;
+    if(jaVerificou) return;
+    jaVerificou = true;
+
+    const res = await fetch(
+        "http://localhost:3000/verify/" + id
+    );
+
+    const data = await res.json();
+
+    /* ===== FORMATA DATA PADRÃO BRASIL ===== */
+
+    let dataBR = data.data;
+
+    const dataObj = new Date(data.data);
+
+    if(!isNaN(dataObj)){
+        dataBR = dataObj.toLocaleString("pt-BR", {
+            timeZone: "America/Araguaina"
+        });
     }
 
-    try{
-
-        const res =
-            await fetch("http://localhost:3000/verify/" + id);
-
-        const data = await res.json();
-
-        let dataFormatada = data.data;
-
-        if(!isNaN(Date.parse(data.data))){
-            dataFormatada = new Date(data.data)
-                .toLocaleString("pt-BR");
-        }
-
-        document.getElementById("resultado").innerText =
-            "Resultado: " + data.resultado +
-            "\nUsuário: " + data.usuario +
-            "\nAlgoritmo: " + data.algoritmo +
-            "\nData: " + dataFormatada;
-
-    }catch(err){
-        console.error(err);
-        document.getElementById("resultado")
-            .innerText = "Erro ao verificar assinatura.";
-    }
+    resultado.innerText =
+`Resultado: ${data.resultado}
+Usuário: ${data.usuario}
+Algoritmo: ${data.algoritmo}
+Data: ${dataBR}`;
 }
 
-verificar();
+function voltar(){
+    window.location.href="minhas-assinaturas.html";
+}
+
+/* executa UMA vez só */
+window.addEventListener("DOMContentLoaded", verificar);
 
 </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+li{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+li button{
+    width:auto;
+    padding:6px 12px;
+}

@@ -1,51 +1,57 @@
-<h2>Cadastro</h2>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro</title>
 
-<input id="nome" placeholder="Nome"><br><br>
-<input id="email" placeholder="Email"><br><br>
-<input id="senha" type="password" placeholder="Senha"><br><br>
+<link rel="stylesheet" href="CSS/global.css">
+<link rel="stylesheet" href="CSS/form.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Cadastrar Usuário</h2>
+
+<div id="msg"></div>
+
+<input id="nome" placeholder="Nome">
+<input id="email" placeholder="Email">
+<input id="senha" type="password" placeholder="Senha">
 
 <button onclick="cadastrar()">Cadastrar</button>
 
-<br><br>
+<button onclick="location.href='login.html'">
+Voltar ao Menu
+</button>
 
-<p>Já tem cadastro?</p>
-<button onclick="irLogin()">Entre na sua conta</button>
+</div>
 
 <script>
 
 async function cadastrar(){
 
-    const nome = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
-
-    const res = await fetch("http://localhost:3000/register",{
+    const res=await fetch("http://localhost:3000/register",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({nome,email,senha})
+        body:JSON.stringify({
+            nome:nome.value,
+            email:email.value,
+            senha:senha.value
+        })
     });
 
-    const data = await res.json();
+    const data=await res.json();
 
     if(!res.ok){
-        alert(data.erro);
+        msg.innerText=data.erro;
         return;
     }
 
-    alert(
-        "Usuário criado com sucesso!\n\n" +
-        "Nome: " + data.nome +
-        "\nID: " + data.id
-    );
-
-     // limpa campos
-     document.getElementById("nome").value = "";
-     document.getElementById("email").value = "";
-     document.getElementById("senha").value = "";
-}
-
-function irLogin(){
-    window.location.href = "login.html";
+    msg.innerText="Usuário criado com sucesso!";
 }
 
 </script>
+</body>
+</html>

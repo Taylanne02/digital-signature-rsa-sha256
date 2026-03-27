@@ -1,0 +1,106 @@
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* FUNDO */
+body{
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width: 500px;          /* aumentou a tela */
+    padding: 50px;
+    margin: auto;
+    margin-top: 80px;
+
+    background: #0f1b2d;
+    border-radius: 15px;
+
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+
+    text-align: center;
+}
+
+/* TITULOS */
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#38bdf8;
+}
+
+/* TEXTO */
+p{
+    margin-bottom:10px;
+}
+
+/* INPUTS */
+input, textarea{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    margin-top:8px;
+    margin-bottom:15px;
+    background:#1f2937;
+    color:white;
+}
+
+/* TEXTAREA */
+textarea{
+    height:120px;
+    resize:none;
+}
+
+button{
+    width: 100%;
+    padding: 18px;
+    margin-top: 15px;   /* 👈 espaço entre botões */
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button + button{
+    margin-top: 18px;
+}
+
+button:hover{
+    background:#0ea5e9;
+}
+
+/* LINKS */
+a{
+    color:#38bdf8;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+/* LISTAS */
+ul{
+    list-style:none;
+}
+
+li{
+    background:#1f2937;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:8px;
+}

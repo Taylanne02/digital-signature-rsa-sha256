@@ -1,71 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Menu</title>
+
+<link rel="stylesheet" href="CSS/global.css">
+<link rel="stylesheet" href="CSS/form.css">
+</head>
+
+<body>
+
+<div class="container">
+
 <h2>Menu Principal</h2>
 
 <p id="usuario"></p>
 
-<h3>Qual serviço deseja executar?</h3>
-
-<button onclick="irAssinar()">Assinar</button>
-<br><br>
-
-<button onclick="irMinhas()">Minhas Assinaturas</button>
-<br><br>
-
-<button onclick="irChaves()">Chaves Públicas</button>
-<br><br>
-
-<button onclick="irMinhasChaves()">Minhas Chaves</button>
-<br><br>
-
-<button onclick="irCadastro()">Cadastrar Novo Usuário</button>
-<br><br>
+<button onclick="go('assinar.html')">Assinar Texto</button>
+<button onclick="go('minhas-assinaturas.html')">Minhas Assinaturas</button>
+<button onclick="go('minhas-chaves.html')">Minhas Chaves</button>
+<button onclick="go('chaves-publicas.html')">Chaves Públicas</button>
+<button onclick="go('cadastro.html')">Novo Usuário</button>
 
 <button onclick="logout()">Logout</button>
-<br><br>
+
+</div>
 
 <script>
 
-const userId = localStorage.getItem("userId");
-const nome = localStorage.getItem("nome");
+const userId=localStorage.getItem("userId");
+const nome=localStorage.getItem("nome");
 
-if(!userId){
-    window.location.href = "login.html";
-}
+if(!userId) location.href="login.html";
 
-document.getElementById("usuario")
-.innerText = "Logado como: " + nome;
+usuario.innerText="Logado como: "+nome;
 
-
-function irAssinar(){
-    window.location.href = "assinar.html";
-}
-
-function irMinhas(){
-    window.location.href = "minhas-assinaturas.html";
-}
-
-function irChaves(){
-    window.location.href = "chaves-publicas.html";
-}
-
-function irMinhasChaves(){
-    window.location.href = "minhas-chaves.html";
-}
-
-// ir para cadastro
-function irCadastro(){
-    window.location.href = "cadastro.html";
+function go(p){
+    window.location.href=p;
 }
 
 function logout(){
-
-    // limpa sessão
-    localStorage.removeItem("userId");
-    localStorage.removeItem("nome");
-
-    alert("Logout realizado com sucesso!");
-
-    // volta pro login
-    window.location.href = "login.html";
+    localStorage.clear();
+    location.href="login.html";
 }
 
 </script>
+</body>
+</html>

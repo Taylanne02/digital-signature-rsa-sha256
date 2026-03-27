@@ -1,79 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Assinar</title>
+
+<link rel="stylesheet" href="CSS/global.css">
+<link rel="stylesheet" href="CSS/form.css">
+</head>
+
+<body>
+
+<div class="container">
+
 <h2>Assinar Texto</h2>
 
 <p id="usuario"></p>
-
-<button onclick="logout()">Sair</button>
-
-<br><br>
+<div id="msg"></div>
 
 <textarea id="texto" placeholder="Digite o texto"></textarea>
 
-<br><br>
-
 <input id="senha" type="password" placeholder="Confirme sua senha">
 
-<br><br>
-
 <button onclick="assinar()">Assinar</button>
+<button onclick="voltar()">Voltar</button>
+<button onclick="logout()">Sair</button>
+
+</div>
 
 <script>
 
+const userId=localStorage.getItem("userId");
+const nome=localStorage.getItem("nome");
 
-const userId = localStorage.getItem("userId");
-const nome = localStorage.getItem("nome");
+if(!userId) location.href="login.html";
 
-if(!userId){
-    alert("Faça login primeiro!");
-    window.location.href = "login.html";
-}
-
-document.getElementById("usuario").innerText =
-    "Logado como: " + nome;
+usuario.innerText="Logado como: "+nome;
 
 async function assinar(){
 
-    const texto = document.getElementById("texto").value;
-    const senha = document.getElementById("senha").value;
+const res=await fetch("http://localhost:3000/sign",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+userId,
+texto:texto.value,
+senha:senha.value
+})
+});
 
-    if(!texto || !senha){
-        alert("Digite o texto e confirme sua senha!");
-        return;
-    }
+const data=await res.json();
 
-    const res = await fetch("http://localhost:3000/sign",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-            userId,
-            texto,
-            senha
-        })
-    });
+if(!res.ok){
+msg.innerText=data.erro;
+return;
+}
 
-    const data = await res.json();
+msg.innerText="Assinatura criada! ID: "+data.assinaturaId;
 
-    if(!res.ok){
-        alert(data.erro);
-        return;
-    }
-
-    alert(
-        "Assinatura criada!\n\nID: " +
-        data.assinaturaId
-    );
-
-    // limpa campos
-    document.getElementById("texto").value = "";
-    document.getElementById("senha").value = "";
+texto.value="";
+senha.value="";
 }
 
 function logout(){
+localStorage.clear();
+location.href="login.html";
+}
 
-    localStorage.clear();
-
-    alert("Você saiu do sistema.");
-
-    window.location.href = "login.html";
+function voltar(){
+    window.location.href="menu.html";
 }
 
 </script>
+</body>
+</html>
