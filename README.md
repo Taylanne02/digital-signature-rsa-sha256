@@ -4,9 +4,13 @@ Atividade de Segurança de Sistema - Aplicação web desenvolvida com o objetivo
 
 **Obs.: A atividade foi entregue e apresentada em 26/03/2026, contemplando todas as alterações solicitadas. Após essa data, o projeto passou a ser mantido e desenvolvido individualmente.**
 
-Dupla:
-- Taylanne Castelo Branco Cavalcante
-- Yngrind Guimarães Silva
+------------------------------
+
+# Atualizações escritas do Projeto
+
+1. 28/03/2026: Adição de arquivos CSS para aprimorar a estilização do site, proporcionando uma interface mais organizada e visualmente atraente.
+
+2. 30/03/2026: Continuação das melhorias no Frontend com a implementação de novos estilos em CSS, visando uma experiência mais moderna, responsiva e agradável ao usuário.
 
 ------------------------------
 
