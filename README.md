@@ -56,7 +56,7 @@ Toda a aplicação utiliza persistência em banco de dados SQLite.
 
         node server.js
 
-        Servidor iniciará em: http://localhost:3000
+        -> Servidor iniciará em: http://localhost:3000
 
 ------------------------------
 
