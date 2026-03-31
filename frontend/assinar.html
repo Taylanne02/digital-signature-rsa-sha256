@@ -15,20 +15,22 @@
 <h2>Assinar Texto</h2>
 
 <p id="usuario"></p>
-<div id="msg"></div>
+<div id="msg" class="message"></div>
 
 <textarea id="texto" placeholder="Digite o texto"></textarea>
 
 <input id="senha" type="password" placeholder="Confirme sua senha">
 
 <button onclick="assinar()">Assinar</button>
-<button onclick="voltar()">Voltar</button>
-<button onclick="logout()">Sair</button>
+<button class="secondary" onclick="voltar()">Voltar</button>
+<button class="secondary" onclick="logout()">Sair</button>
 
 </div>
 
+<script src="js/ui.js"></script>
 <script>
 
+const msg = document.getElementById("msg");
 const userId=localStorage.getItem("userId");
 const nome=localStorage.getItem("nome");
 
@@ -51,12 +53,11 @@ senha:senha.value
 const data=await res.json();
 
 if(!res.ok){
-msg.innerText=data.erro;
+showMessage(msg, data.erro || "Erro ao assinar.", 'error', 12000);
 return;
 }
 
-msg.innerText="Assinatura criada! ID: "+data.assinaturaId;
-
+showMessage(msg, "Assinatura criada! ID: "+data.assinaturaId, 'success', 12000);
 texto.value="";
 senha.value="";
 }

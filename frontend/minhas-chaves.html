@@ -16,7 +16,7 @@
 
 <p id="usuario"></p>
 
-<div id="msg"></div>
+<div id="msg" class="message"></div>
 
 <input id="senha" type="password"
 placeholder="Confirme sua senha">
@@ -27,14 +27,16 @@ Baixar chave privada
 
 <br><br>
 
-<button onclick="voltar()">Voltar</button>
+<button class="secondary" onclick="voltar()">Voltar</button>
 
 </div>
 
+<script src="js/ui.js"></script>
 <script>
 
 const userId = localStorage.getItem("userId");
 const nome = localStorage.getItem("nome");
+const msg = document.getElementById("msg");
 
 if(!userId){
     window.location.href="login.html";
@@ -47,12 +49,11 @@ document.getElementById("usuario").innerText =
 async function baixarPrivada(){
 
     const senha = document.getElementById("senha").value;
-    const msg = document.getElementById("msg");
 
-    msg.innerText = "";
+    clearMessage(msg);
 
     if(!senha){
-        msg.innerText = "Digite sua senha.";
+        showMessage(msg, "Digite sua senha.", 'error', 12000);
         return;
     }
 
@@ -72,7 +73,7 @@ async function baixarPrivada(){
         const data = await res.json();
 
         if(!res.ok){
-            msg.innerText = data;
+            showMessage(msg, data.erro || "Erro ao baixar chave.", 'error', 12000);
             return;
         }
 
@@ -86,13 +87,13 @@ async function baixarPrivada(){
         a.download = "privateKey.pem";
         a.click();
 
-        msg.innerText = "Download iniciado com sucesso!";
+        showMessage(msg, "Download iniciado com sucesso!", 'success', 12000);
 
         document.getElementById("senha").value="";
 
     }catch(err){
         console.error(err);
-        msg.innerText = "Erro ao baixar chave.";
+        showMessage(msg, "Erro ao baixar chave.", 'error', 12000);
     }
 }
 

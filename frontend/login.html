@@ -14,7 +14,7 @@
 
 <h2>Login</h2>
 
-<div id="msg"></div>
+<div id="msg" class="message"></div>
 
 <input id="email" placeholder="Email">
 <input id="senha" type="password" placeholder="Senha">
@@ -22,11 +22,14 @@
 <button onclick="login()">Entrar</button>
 
 <p>Não possui conta?</p>
-<button onclick="irCadastro()">Cadastrar</button>
+<button class="secondary" onclick="irCadastro()">Cadastrar</button>
 
 </div>
 
+<script src="js/ui.js"></script>
 <script>
+
+const msg = document.getElementById("msg");
 
 if(localStorage.getItem("userId")){
     window.location.href="menu.html";
@@ -46,7 +49,7 @@ async function login(){
     const data = await res.json();
 
     if(!res.ok){
-        msg.innerText=data.erro;
+        showMessage(msg, data.erro || "Login inválido.", 'error', 12000);
         return;
     }
 

@@ -14,7 +14,7 @@
 
 <h2>Cadastrar Usuário</h2>
 
-<div id="msg"></div>
+<div id="msg" class="message"></div>
 
 <input id="nome" placeholder="Nome">
 <input id="email" placeholder="Email">
@@ -22,13 +22,16 @@
 
 <button onclick="cadastrar()">Cadastrar</button>
 
-<button onclick="location.href='login.html'">
+<button class="secondary" onclick="location.href='login.html'">
 Voltar ao Menu
 </button>
 
 </div>
 
+<script src="js/ui.js"></script>
 <script>
+
+const msg = document.getElementById("msg");
 
 async function cadastrar(){
 
@@ -45,11 +48,14 @@ async function cadastrar(){
     const data=await res.json();
 
     if(!res.ok){
-        msg.innerText=data.erro;
+        showMessage(msg, data.erro || "Erro ao cadastrar.", 'error', 12000);
         return;
     }
 
-    msg.innerText="Usuário criado com sucesso!";
+    showMessage(msg, "Usuário criado com sucesso!", 'success', 12000);
+    nome.value = "";
+    email.value = "";
+    senha.value = "";
 }
 
 </script>
