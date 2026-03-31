@@ -6,14 +6,6 @@ Atividade de Segurança de Sistema - Aplicação web desenvolvida com o objetivo
 
 ------------------------------
 
-# Atualizações escritas do Projeto
-
-1. 28/03/2026: Adição de arquivos CSS para aprimorar a estilização do site, proporcionando uma interface mais organizada e visualmente atraente.
-
-2. 30/03/2026: Continuação das melhorias no Frontend com a implementação de novos estilos em CSS, visando uma experiência mais moderna, responsiva e agradável ao usuário.
-
-------------------------------
-
 # Descrição do Projeto
 
 O sistema permite que usuários:
@@ -319,3 +311,15 @@ Toda a aplicação utiliza persistência em banco de dados SQLite.
 
 # Exemplo de Assinatura Inválida
 ![Assinatura inválida](Imagens/Assinatura-invalida.png)
+
+------------------------------
+
+# Atualizações escritas do Projeto
+
+1. 28/03/2026: Adição de arquivos CSS para aprimorar a estilização do site, proporcionando uma interface mais organizada e visualmente atraente.
+
+2. 30/03/2026: Continuação das melhorias no Frontend com a implementação de novos estilos em CSS, visando uma experiência mais moderna, responsiva e agradável ao usuário.
+
+3. 31/03/2026: Adição de arquivos CSS para aprimorar a estilização do site.
+
+------------------------------
