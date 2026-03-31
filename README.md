@@ -48,7 +48,9 @@ Toda a aplicação utiliza persistência em banco de dados SQLite.
 
     2- Instalar dependências:
 
-        npm install
+        1. npm install
+
+        2. npm install bcrypt
 
     3- Executar o servidor:
 
