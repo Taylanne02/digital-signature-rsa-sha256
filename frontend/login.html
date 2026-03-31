@@ -21,7 +21,7 @@
 
 <button onclick="login()">Entrar</button>
 
-<p>Não possui conta?</p>
+<p class="info-text">Não possui conta?</p>
 <button class="secondary" onclick="irCadastro()">Cadastrar</button>
 
 </div>
@@ -29,38 +29,39 @@
 <script src="js/ui.js"></script>
 <script>
 
+const emailInput = document.getElementById("email");
+const senhaInput = document.getElementById("senha");
 const msg = document.getElementById("msg");
 
-if(localStorage.getItem("userId")){
-    window.location.href="menu.html";
+if (localStorage.getItem("userId")) {
+    window.location.href = "menu.html";
 }
 
-async function login(){
-
-    const res = await fetch("http://localhost:3000/login",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-            email:email.value,
-            senha:senha.value
+async function login() {
+    const res = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            email: emailInput.value,
+            senha: senhaInput.value
         })
     });
 
     const data = await res.json();
 
-    if(!res.ok){
+    if (!res.ok) {
         showMessage(msg, data.erro || "Login inválido.", 'error', 12000);
         return;
     }
 
-    localStorage.setItem("userId",data.userId);
-    localStorage.setItem("nome",data.nome);
+    localStorage.setItem("userId", data.userId);
+    localStorage.setItem("nome", data.nome);
 
-    window.location.href="menu.html";
+    window.location.href = "menu.html";
 }
 
-function irCadastro(){
-    window.location.href="cadastro.html";
+function irCadastro() {
+    window.location.href = "cadastro.html";
 }
 
 </script>

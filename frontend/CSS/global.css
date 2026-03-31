@@ -42,6 +42,13 @@ p{
     color: #cbd5e1;
 }
 
+.info-text {
+    margin-top: 20px;
+    margin-bottom: 22px;
+    font-size: 0.98rem;
+    color: #cbd5e1;
+}
+
 /* INPUTS */
 input, textarea{
     width:100%;
