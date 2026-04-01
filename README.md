@@ -35,26 +35,18 @@ Toda a aplicação utiliza persistência em banco de dados SQLite.
 
 1- Clonar o repositório:
 
-        ```bash
         git clone https://github.com/Taylanne02/Atividade-Assinador-Digital-Web.git
         cd Atividade-Assinador-Digital-Web
-        ```
 
 2- Instalar dependências:
 
-        ```bash
         npm install
-        ```
 
-        ```bash
         npm install bcrypt
-        ``` 
 
 3- Executar o servidor:
 
-        ```bash
         node server.js
-        ```
 
         -> Servidor iniciará em: http://localhost:3000
 
